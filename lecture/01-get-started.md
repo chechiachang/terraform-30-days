@@ -1,6 +1,4 @@
-
-
-#
+# Get Started
 
 In this session you will learn
 - Prerequisite
@@ -246,15 +244,24 @@ Do you want to perform these actions?
 
 And the storage container is gone.
 
-# Add Storage Container Back
+# Practice
 
-Now, try add the storage container back. We'll need that in future session.
+Now, try the following practice
 
-# Conclusion
+1. Add Storage Container back
+1. Try other resources in `azure/poc`
+  - Make some changes to variables. ex. rename resources. Then apply.
+1. Check State
+  - Use your favorate editor to check content of `terraform.tfstate` file
+  - Try terraform destroy
+  - After destroy, check `terraform.tfstate` again
+
+# Summary
 
 So far, we know that Terraform somehow 'sync' the desired resources in local .tf files to cloud states. Terraform will ask to create a new resource if there's a new resource block, delete an existing resource if cloud state has more resources than local .tf files.
 
-Basic
-- init, plan, apply
+Basically
+- three steps: init, plan, apply
 - More tf than state -> add. Less tf than state -> delete.
-- Always review plan before apply
+- Terraform is declarative: write final resources, provider (discuss in session ?) will handle how to reconcile resources & states
+- A good habit: always review plan before apply, especially destroy.

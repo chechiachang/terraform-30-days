@@ -1,3 +1,11 @@
+validate:
+	terraform validate .
+
+fmt:
+	terraform fmt .
+
+# terratest
+
 go-init:
 	go mod init github.com/chechiachang/terraform-30-days
 

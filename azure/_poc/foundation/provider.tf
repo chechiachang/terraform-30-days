@@ -12,8 +12,3 @@ terraform {
 provider "azurerm" {
   features {}
 }
-
-resource "azurerm_resource_group" "rg" {
-  name     = "terraform-30-days"
-  location = "southeastasia" # Or use japaneast
-}
