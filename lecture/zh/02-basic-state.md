@@ -123,6 +123,8 @@ Terraform 產生 resource group 後，將 azure API 回覆的 resources 各項�
 - .tf 有事需要 review 與測試
 - State 中可能包含 sensitive 資料，sensitive 資料不宜放到版本控制系統
 
+本課程不建議把 .tfstate 加入到版本控制，本 repository 已經將.tfstate 加入到 .gitignore 中。
+
 ### sensitive 資料與安全性
 
 所有在 terraform plan / apply 中產生的 data 與 meta-data，都會紀錄在 tfstate 中，那是否有一些 State 內容是敏感資料，不希望讓他人看到？
