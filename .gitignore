@@ -47,3 +47,20 @@ override.tf.json
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+# Terragrunt
+
+ .*.sw?
+.idea
+terragrunt.iml
+vendor
+.terraform
+.vscode
+*.tfstate
+*.tfstate.backup
+*.out
+.terragrunt-cache
+.bundle
+.ruby-version
+.terraform.lock.hcl
+terragrunt
