@@ -38,3 +38,7 @@ Project: chechiachang/terraform-30-days/azure/foundation
 
  OVERALL TOTAL                   $0.00
 ```
+
+# With Terragrunt
+
+https://www.infracost.io/docs/iac_tools/terragrunt/

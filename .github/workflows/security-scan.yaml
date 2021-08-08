@@ -19,6 +19,8 @@ jobs:
       # Static analysis of Terraform templates to spot potential security issues
       # Marketplace: https://github.com/marketplace/actions/terraform-security-scan
       - name: "Security Scan"
-        uses: triat/terraform-security-scan@v1
+        uses: triat/terraform-security-scan@v3
+        with:
+          tfsec_exclude: "google-storage-enable-ubla"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

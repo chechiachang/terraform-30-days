@@ -59,7 +59,7 @@ vendor
 *.tfstate
 *.tfstate.backup
 *.out
-.terragrunt-cache
+**/.terragrunt-cache/*
 .bundle
 .ruby-version
 .terraform.lock.hcl

@@ -19,7 +19,7 @@ EOF
 }
 
 inputs = {
-  registry_name                 = "chechiasoutheastasia"
-  location                      = "southeastasia"
+  registry_name                 = "chechiajapanwest"
+  location                      = "japanwest"
   public_network_access_enabled = true
 }
