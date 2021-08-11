@@ -1,14 +1,16 @@
-name: "Validate changes"
+name: "Terraform Format"
 
 on:
   push:
     branches:
-      - '!main'
+      - main
 
 jobs:
-  validate:
+  terraform-fmt:
+    name: "Terraform Format"
     runs-on: ubuntu-latest
-    name: Validate terraform configuration
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -18,5 +20,5 @@ jobs:
         with:
           terraform_version: 1.0.1
 
-      - name: Validate
-        run: terraform validate
+      - name: Format
+        run: terraform fmt -recursive

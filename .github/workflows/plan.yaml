@@ -1,0 +1,91 @@
+# https://github.com/WahlNetwork/github-action-terraform/blob/master/.github/workflows/tf-plan.yml
+# https://github.com/the-commons-project/terragrunt-github-actions
+name: "Terraform Plan"
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  terraform-plan:
+    name: "Terraform Plan"
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the code
+      # Marketplace: https://github.com/marketplace/actions/checkout
+      - name: "Checkout"
+        uses: actions/checkout@v2.1.0
+
+      - name: "Diff"
+        uses: actions/checkout@v2.1.0
+        with:
+          fetch-depth: 0
+      - run: |
+          CHANGED_DIR=$(git --no-pager diff --name-only ${{ github.event.before }}..${{ github.event.after }} | sed 's|\(.*\)/.*|\1|' | uniq | head -1) >> $GITHUB_ENV
+
+      - name: "Decode ARM_CLIENT_CERTIFICATE"
+        run: |
+          echo -n ${ARM_CLIENT_CERTIFICATE_BASE64} | base64 -d > terraform-30-days.pfx
+        env:
+          ARM_CLIENT_CERTIFICATE_BASE64: ${{ secrets.ARM_CLIENT_CERTIFICATE_BASE64 }}
+
+      - name: "Setup Terraform"
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.1
+
+      # https://github.com/marketplace/actions/terragrunt-installer
+      - name: "Setup Terragrunt"
+        uses: autero1/action-terragrunt@v1.1.0
+        with:
+          terragrunt_version: 0.31.3
+
+      - name: "Terragrunt Init"
+        run: |
+          if [[ ${CHANGED_DIR} =~ azure ]]; then
+            terragrunt init --terragrunt-working-dir ${CHANGED_DIR}
+          else
+            echo "Skip"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          ARM_CLIENT_CERTIFICATE_PASSWORD: ${{ secrets.ARM_CLIENT_CERTIFICATE_PASSWORD }}
+          ARM_CLIENT_CERTIFICATE_PATH: terraform-30-days.pfx
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+
+      # The id value is used for reference in the comment step via "steps.plan.outputs.stdout"
+      # Note: Color is disabled to prevent messy characters from appearing in the pull request comment
+      - name: "Terragrunt Plan"
+        run: |
+          if [[ ${CHANGED_DIR} =~ azure ]]; then
+            terragrunt plan --terragrunt-working-dir ${CHANGED_DIR}
+          else
+            echo "Skip"
+          fi
+        id: plan
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          ARM_CLIENT_CERTIFICATE_PASSWORD: ${{ secrets.ARM_CLIENT_CERTIFICATE_PASSWORD }}
+          ARM_CLIENT_CERTIFICATE_PATH: terraform-30-days.pfx
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+
+      # Submit a comment with the plan output to the pull request
+      - name: "Run - Terraform Comment"
+        uses: actions/github-script@0.9.0
+        env:
+          STDOUT: "```${{ steps.plan.outputs.stdout }}```"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: process.env.STDOUT
+            })

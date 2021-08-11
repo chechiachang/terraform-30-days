@@ -1,0 +1,24 @@
+name: "Terraform Security Check"
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  terraform-plan:
+    name: "Terraform Security Check"
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the code
+      # Marketplace: https://github.com/marketplace/actions/checkout
+      - name: "Checkout"
+        uses: actions/checkout@v2.1.0
+
+      # Static analysis of Terraform templates to spot potential security issues
+      # Marketplace: https://github.com/marketplace/actions/terraform-security-scan
+      - name: "Security Scan"
+        uses: triat/terraform-security-scan@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
