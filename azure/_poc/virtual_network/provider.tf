@@ -10,10 +10,10 @@ terraform {
 
   # remote Backend
   backend "azurerm" {
-    resource_group_name  = "terraform-30-days"
-    storage_account_name = "tfstatee903f2ef317fb0b4"
+    resource_group_name  = "terraform-30-days-poc"
+    storage_account_name = "tfstate8b8bff248c5c60c0"
     container_name       = "tfstate"
-    key                  = "virtual_network.tfstate"
+    key                  = "_poc/virtual_network/terraform.tfstate"
   }
 }
 

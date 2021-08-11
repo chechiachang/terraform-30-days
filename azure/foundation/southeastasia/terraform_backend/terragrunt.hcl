@@ -4,20 +4,10 @@ terraform {
   source = "../../../..//azure/modules/terraform_backend"
 }
 
-# dependency cycle
+# dependency cycle: terraform_backend is provisioned before all terragrunt usage. There is no terragrunt.hcl at that time.
 #include {
-#  path = "${find_in_parent_folders()}"
+#  path = find_in_parent_folders()
 #}
-
-generate "provider" {
-  path = "provider.tf"
-  if_exists = "overwrite_terragrunt"
-  contents = <<EOF
-provider "azurerm" {
-  features {}
-}
-EOF
-}
 
 inputs = {
   resource_group_name = "terraform-30-days"

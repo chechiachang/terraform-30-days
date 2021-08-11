@@ -3,10 +3,10 @@ resource "azurerm_resource_group" "rg" {
   location = var.location
 
   # https://www.terraform.io/docs/language/functions/merge.html
-  tags     = merge(
+  tags = merge(
     var.extra_tags,
     {
-      managed-by  = "terraform"
+      managed-by = "terraform"
     }
   )
 }

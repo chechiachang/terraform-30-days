@@ -1,5 +1,15 @@
 # TERRAGRUNT CONFIGURATION
 
+generate "provider" {
+  path = "provider.tf"
+  if_exists = "overwrite_terragrunt"
+  contents = <<EOF
+provider "azurerm" {
+  features {}
+}
+EOF
+}
+
 # state to use existing resources in terraform_backend
 remote_state {
   backend = "azurerm"
@@ -17,7 +27,7 @@ remote_state {
     #     and then put terraform.tfstate to azure/storage/container/southeastasia/terraform_backend
     #     check terraform.tfstate file on azure storage explorer
     resource_group_name  = "terraform-30-days"
-    storage_account_name = "tfstatee903f2ef317fb0b4"
+    storage_account_name = "tfstate445d2966b56b5d05"
     container_name       = "tfstate"
   }
 }

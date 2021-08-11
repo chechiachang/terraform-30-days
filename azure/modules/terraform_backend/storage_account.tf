@@ -14,7 +14,7 @@ resource "azurerm_storage_account" "main" {
   tags = merge(
     var.extra_tags,
     {
-      managed-by  = "terraform"
+      managed-by = "terraform"
     }
   )
 }

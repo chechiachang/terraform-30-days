@@ -13,7 +13,7 @@ terraform {
     resource_group_name  = "terraform-30-days-poc"
     storage_account_name = "tfstate8b8bff248c5c60c0"
     container_name       = "tfstate"
-    key                  = "_poc/container_registry/terraform.tfstate"
+    key                  = "_poc/compute/terraform.tfstate"
   }
 }
 

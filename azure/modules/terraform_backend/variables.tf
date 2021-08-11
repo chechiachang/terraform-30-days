@@ -7,6 +7,6 @@ variable "location" {
 }
 
 variable "extra_tags" {
-  type = map(string)
+  type    = map(string)
   default = {}
 }
