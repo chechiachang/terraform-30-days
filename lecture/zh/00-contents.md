@@ -1,8 +1,4 @@
-# TODO
-
-- lock module version
-
-# Content
+# Content (WIP)
 
 - Basic
   - 00-introduction
@@ -25,7 +21,7 @@
     - type collection
     - providers.md
   - 14-example-kubernetes-aks
-    - type, 
+    - type
 - Advanced
   - 15-state-manipulate
   - 16-terraformer
@@ -56,22 +52,16 @@
     - [AWS airIAM](https://github.com/bridgecrewio/AirIAM)
   - 28-example-vault
   - 29-example-azure-function
-Ending
+- Ending
   - 30-good-about-terraform
-
-useful
-  - t apply -target 
+- Other interesting topics
   - high performance terraform
-terraform-bad-bad
-example
-  - github
-  - vishwakarma
-iac-alternatives
-terraform-cloud
-open-policy-agent
-write-provider-and-pizza
+  - iac-alternatives
+  - terraform-cloud
+  - open-policy-agent
+  - write-provider-and-pizza
 
-# 
+# materials
 
 - [awesome terraform](https://github.com/shuaibiyy/awesome-terraform)
 - [terraform aws modules](https://github.com/terraform-aws-modules)
