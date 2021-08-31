@@ -1,6 +1,8 @@
 # TERRAGRUNT CONFIGURATION
 
 terraform {
+  #source = "git::ssh://git@github.com/chechiachang/terraform-30-days.git//azure/modules/compute_network?ref=v0.0.3"
+  #source = pathexpand("~/my-workspace/terraform-30-days//azure/modules/compute_network")
   source = "../../..//azure/modules/compute_network"
 
   before_hook "before_hook" {
