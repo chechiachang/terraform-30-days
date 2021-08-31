@@ -19,6 +19,6 @@ inputs = {
   # The principle of least privilege
   role_definition_names = [
     "Contributor",
-    "Owner" # try Privilege escalation
+    #"Owner" # Privilege escalation. Will it work?
   ]
 }

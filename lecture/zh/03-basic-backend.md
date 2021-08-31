@@ -187,6 +187,26 @@ Azurerm backend 還有帶 [state locking](https://www.terraform.io/docs/language
 - 成員 A terraform apply VM update 費時兩分鐘，apply...
 - 成員 B 剛好也上來改 VM，terraform plan
 - 成員 B Terraform 試圖存取 state 時，就會看到 State lock，知道不是當前本機的 lock，跳出警告，並中斷 terraform 操作
+
+```
+Acquiring state lock. This may take a few moments...
+Error locking state: Error acquiring the state lock: ConditionalCheckFailedException: The conditional request failed
+Lock Info:
+  ID:        86ea49f6-255d-074e-97d8-dcd0e8d6c250
+  Path:      _poc/container_registry/terraform.tfstate
+  Operation: apply
+  Who:       chechia@chechias-MacBook
+  Version:   1.0.1
+  Created:   2021-07-29 13:13:27.894319 +0000 UTC
+  Info:
+
+
+Terraform acquires a state lock to protect the state from being written
+by multiple users at the same time. Please resolve the issue above and try
+again. For most commands, you can disable locking with the "-lock=false"
+flag, but this is not recommended.
+```
+
 - 成員 B 知道有其他成員在操作，摸摸鼻子去喝咖啡
 - 成員 A 的 terraform apply 順利完成，遠端 VM 的狀態更新成 A 期待的結果，terraform 確認動作完成，自動解鎖 state lock
 - 成員 B 再次 terraform plan，refresh state 時就會發現遠端 VM 已經變成 A 的形狀

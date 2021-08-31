@@ -244,7 +244,7 @@ Do you want to perform these actions?
 
 And the storage container is gone.
 
-# Practice
+# Homework
 
 Now, try the following practice
 
@@ -265,3 +265,5 @@ Basically
 - More tf than state -> add. Less tf than state -> delete.
 - Terraform is declarative: write final resources, provider (discuss in session ?) will handle how to reconcile resources & states
 - A good habit: always review plan before apply, especially destroy.
+
+- https://azure.microsoft.com/zh-tw/free/free-account-faq/

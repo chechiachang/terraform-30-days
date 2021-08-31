@@ -39,4 +39,9 @@ terraform {
       "${get_parent_terragrunt_dir()}/env.tfvars",
     ]
   }
+
+  #before_hook "before_hook" {
+  #  commands     = ["apply", "plan"]
+  #  execute      = ["tfsec", "."]
+  #}
 }

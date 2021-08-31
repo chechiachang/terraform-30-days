@@ -1,12 +1,12 @@
 variable "images" {
-  type = set(string)
+  type    = set(string)
   default = []
 }
 
 variable "containers" {
   type = map(object({
-    name = string
-    image = string
+    name       = string
+    image      = string
     entrypoint = string
   }))
   default = {}
