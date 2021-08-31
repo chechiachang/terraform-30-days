@@ -38,6 +38,67 @@ Features
 
 # Local Run atlantis
 
+[Atlantis Local Run](https://www.runatlantis.io/guide/testing-locally.html#testing-locally)
+
+Install atlantis
+```
+wget https://github.com/runatlantis/atlantis/releases/download/v0.17.2/atlantis_darwin_amd64.zip
+unzip atlantis_darwin_amd64.zip
+sudo mv atlantis /usr/local/bin/atlantis
+
+atlantis -h
+```
+
+Install ngrok and run
+- 記下 forwarding url ，作為 URL 環境變數
+- 保持 ngrok 執行的狀況下，開新 terminal 執行下列步驟
+```
+wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-darwin-amd64.zip
+unzip ngrok-stable-darwin-amd64.zip
+sudo mv ngrok /usr/local/bin/ngrok
+
+./ngrok http 4141
+
+...
+Forwarding                    http://41eb-123-194-159-122.ngrok.io -> http://localhost:4141
+...
+```
+
+Config Github Webhook
+- githob repository (ex. chechiachang/terraform-30-days)
+- settings -> webhook -> add webhook
+- http://41eb-123-194-159-122.ngrok.io/events
+- 記下 webhook token，放在安全的地方 -> 作為 SECRET 環境變數
+
+Create Github Personal Access token
+- github user -> settings ->  Developer settings -> Personal access tokens
+- atlantis
+- 只是本地試用，expiration 選 7 天
+- 記下 access token，放在安全的地方 -> 作為 TOKEN 環境變數
+
+Local Run atlantis server
+- 保持 atlantis server 執行
+```
+URL="http://41eb-123-194-159-122.ngrok.io"
+SECRET="urm-kfp@zab6jua8FWQ"
+TOKEN="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"
+USERNAME="chechiachang"
+REPO_ALLOWLIST="github.com/chechiachang/terraform-30-days"
+
+atlantis server \
+--atlantis-url="$URL" \
+--gh-user="$USERNAME" \
+--gh-token="$TOKEN" \
+--gh-webhook-secret="$SECRET" \
+--repo-allowlist="$REPO_ALLOWLIST"
+
+...
+{"level":"info","ts":"2021-08-31T23:03:31.616+0800","caller":"server/server.go:680","msg":"Atlantis started - listening on port 4141","json":{}}
+```
+
+# 
+
+
 # Config Atlantis
 
 [Atlantis: terrragrunt support](https://www.runatlantis.io/docs/custom-workflows.html#use-cases)
