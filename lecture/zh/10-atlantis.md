@@ -224,6 +224,7 @@ Apply 也很單純，就是 apply
 - High Availability: 執行多個 atlantis server replicas，當其中一個故障時整體 gitflow 功能仍有效
   - [helm chart 便可以設定](https://github.com/runatlantis/helm-charts/blob/main/charts/atlantis/values.yaml#L204)
   - 由於 terraform remote backend 有提供 state lock [複習第 2 章](./lecture/02-basic-state.md)，不會有多個 atlantis server apply 同一個 root module 的問題
+- github personal access token 可以使用專屬的 bot user，而不要用 chechiachang
 - credential 改用 azure service principal 的設定
   - 放在 atlantis server 可及的安全之處
   - 如果是 k8s 可以搭配 hashicorp vault 使用
