@@ -5,29 +5,31 @@
   - 01-get-started
     - get-started-gcp
     - get-started-aws
-  - 02-basic-state
-  - 03-basic-backend
-  - 04-module
-  - 05-module-remote
-  - 06-terragrunt
-  - 07-git-flow
+  - 02-hello-terraform
+  - 03-basic-state
+  - 04-basic-backend
+  - 05-module
+  - 06-module-remote
+  - 07-terragrunt
+  - 08-git-flow
     - missing: validate-fmt-lint
-  - 08-iam-for-terraform
-  - 09-ci-cd-automation-github
-  - 10-atlantis
-  - 11-tfsec
-  - 12-syntax
-    13-loop expression-meta-arguments
+  - 09-iam-for-terraform
+  - 10-ci-cd-automation-github
+  - 11-atlantis
+  - 12-tfsec
+  - 13-syntax
+    14-loop expression-meta-arguments
     - type collection
     - providers.md
-  - 14-example-kubernetes-aks
+  - 15-example-kubernetes-aks
     - type
 - Advanced
-  - 15-state-manipulate
-  - 16-terraformer
+  - 16-state-manipulate
+  - 17-terraformer
   - Language Expr.
     - founctions
     - conditional-forloop-splat-and-dymanic
+    - variable input output dep. chaining
   - expression evaluation
     - https://www.terraform.io/docs/language/expressions/references.html
   - 15-Language Expr.
