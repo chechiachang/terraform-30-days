@@ -233,11 +233,17 @@ cat terraform.tfstate | jq '.resources[1].instances[0]'
 
 # Homework
 
+嘗試使用 terraform state 的幾個指令
+
 ```
+terraform state --help
 terraform state list
 terraform state show
 ```
 
+terraform destroy 刪除所有本課程的產物
+
+閱讀以下官方文件
 - https://www.terraform.io/docs/language/settings/backends/index.html
 - https://www.terraform.io/docs/language/settings/backends/local.html
 - https://www.terraform.io/docs/language/state/purpose.html
