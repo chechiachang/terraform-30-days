@@ -11,7 +11,9 @@
 
 Ex. Registry 的 input arguments 中許多參數，跟別的 root module 重複
 
-```_poc/container_registry/provider.tf
+```
+# _poc/container_registry/provider.tf
+
 terraform {
   required_providers {
     azurerm = {
@@ -33,7 +35,9 @@ terraform {
 
 Ex. Registry 的 input arguments 中許多參數，跟別的 root module 重複
 
-```_poc/container_registry/registry.tf
+```
+# _poc/container_registry/registry.tf
+
 location = "southeastasia"
 resource_group_name  = "terraform-30-days"
 ```
@@ -130,7 +134,8 @@ azure
 
 到 `azure/foundation/southeastasia/terraform_backend`，一看，裡面只剩下一個檔案
 
-```terragrunt.hcl
+```
+# terragrunt.hcl
 # TERRAGRUNT CONFIGURATION
 
 terraform {
@@ -192,7 +197,8 @@ provider.tf 在這邊已經消失了
   - 我們希望重複使用 provider.tf 的設定，所以把他放到上層 terragrunt.hcl 內部
   - 然後再用 include ，在 terragrunt command 時 (terraform command 前）動態載入
 
-```terragrunt.hcl
+```
+# terragrunt.hcl
 # TERRAGRUNT CONFIGURATION
 
 # use terragrunt function to include .hcl file
@@ -222,7 +228,9 @@ terraform {
 - 會在 source 的目錄（也就是執行 terraform 的目錄）下產生 provider.tf
 - 如果要調整 provider.tf 的參數，這裡也支援使用 terragrunt 的 function 與變數，這邊先不使用
 
-```~/terraform-30-days/azure/terragrunt.hcl
+```
+# azure/terragrunt.hcl
+
 generate "provider" {
   path = "provider.tf"
   if_exists = "overwrite_terragrunt"
@@ -239,7 +247,9 @@ EOF
 - 這邊使用 generate，原理與 generate block 相同，在 terraform 的 root module 內產生 backend.tf
 - 在 backend.tf 內設定 storage container 的參數
 
-```~/terraform-30-days/azure/terragrunt.hcl
+```
+# azure/terragrunt.hcl
+
 remote_state {
   backend = "azurerm"
   generate = {
@@ -271,7 +281,9 @@ remote_state {
 ```
 
 所以整個效果等同於產生一個 backend.tf 
-```backend.tf
+```
+# backend.tf
+
 terraform {
   backend "azurerm" {
     key = "foundation/compute_network/terraform.tfstate"
@@ -295,7 +307,9 @@ terraform {
   - 搭配 [`get_parent_terragrunt_dir()`](https://terragrunt.gruntwork.io/docs/reference/built-in-functions/#get_parent_terragrunt_dir) 使用，拿到上層 terragrunt.hcl 的絕對路徑
   - 然後讀取這個檔案 `~/terraform-30-days/azure/env.tfvars`，作為 -var-file 的參數
 
-```~/terraform-30-days/azure/terragrunt.hcl
+```
+# azure/terragrunt.hcl
+
 terraform {
   extra_arguments "env" {
     commands = get_terraform_commands_that_need_vars()

@@ -63,7 +63,7 @@ cat ~/.azure/azureProfile.json
 
 以 `azure/_poc/foundation/` 為例
 
-```azure/_poc/foundation/
+```
 cd azure/_poc/foundation/
 
 ls
@@ -92,7 +92,7 @@ output.tf
 
 終於，執行第一個 terraform command，`terraform init`
 
-```azure/_poc/foundation/
+```
 terraform init
 
 Initializing the backend...
@@ -166,7 +166,7 @@ Plan: 3 to add, 0 to change, 0 to destroy.
 
 Plan 之後，我們知道 terrform 計畫的結果，如果與我們想得符合（ex. 3 to add plan 符合我們的預期），表示 .tf 與 plan 沒有問題，這時就可以使用 `terraform apply` 真的把 request 送到 Azure 上，產生我們缺少的 resource
 
-```azure/_poc/foundation/
+```
 terraform apply
 
 Do you want to perform these actions?
@@ -191,7 +191,7 @@ apply 下去，會需要一些時間，terraform 會回報已經花費的時間�
 
 這邊看一下 terraform 在本地留下什麼東西
 
-```azure/_poc/foundation/
+```
 ls -al
 
 drwxr-xr-x  .terraform

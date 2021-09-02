@@ -97,7 +97,9 @@ ls ~/.ssh/terraform-30-days*
   - 指定本地 certificate 的路徑，terraform provision service principal 時會上傳
 - role 指派 Contributor，是 [azure 內建的 role](https://docs.microsoft.com/zh-tw/azure/role-based-access-control/built-in-roles#contributor)，沒有 Azure RBAC 的權限，比 owner role 好一點，但其實還是權限過大，先當作範例
 
-```azure/foundation/service_principal
+```
+# azure/foundation/service_principal
+
   service_principal_name               = "terraform-30-days"
   enable_service_principal_certificate = true
   # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_client_certificate)
@@ -225,7 +227,9 @@ terragrunt init && terragrunt plan
 
 嘗試更改自己 service principal 的 role，看能不能 Privilege escalation，把自己從 Contributor 變成 Owner。如果可以的話，terraform 可以自己提升權限變成 Owner，然後近來 azure 亂改
 
-```azure/foundation/service_principal
+```
+# azure/foundation/service_principal
+
   role_definition_names = [
     "Contributor",
     "Owner" # try Privilege escalation
@@ -256,7 +260,9 @@ apply 則回傳 403 permission denied 以及相關錯誤訊息，azure 表示 te
 - 除了調整 RBAC 時，還是需要開有 rbac 管理權限的 Owner 帳號，其他時間使用 service principal 就足夠
 - 覺得每次 export 很麻煩的話，可以自行修改 azure/terragrunt.hcl，這段，具體修改可以參考 [Terraform 官方說明文件](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_client_certificate#configuring-the-service-principal-in-terraform)
 
-```azure/provider
+```
+# azure/provider
+
 generate "provider" {
   path = "provider.tf"
   if_exists = "overwrite_terragrunt"

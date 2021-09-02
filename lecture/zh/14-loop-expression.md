@@ -19,7 +19,9 @@ Terraform 在管理大量類似的雲端 resource 是十分有效率的，底下
 
 如果是熟悉的語言，大概會是長什麼樣子
 
-```sudo code
+```
+# sudo code
+
 createFirewallRule()
 
 for i from 0 to 9 {
@@ -48,7 +50,9 @@ Terraform 提供兩個不同用途的
 
 範例：`modules/kubernetes_cluster/node_pool.tf`
 
-```modules/kubernetes_cluster/node_pool.tf
+```
+# modules/kubernetes_cluster/node_pool.tf
+
 resource "azurerm_kubernetes_cluster_node_pool" "main" {
   for_each              = var.node_pools
   name                  = each.value.name
@@ -155,7 +159,9 @@ output "print_the_names" {
 
 
 
-```modules/kubernetes_cluster/variables.tf
+```
+# modules/kubernetes_cluster/variables.tf
+
 # var.node_pools is a map of any
 variable "node_pools" {
   type    = map(any)

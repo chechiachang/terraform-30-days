@@ -138,7 +138,9 @@ comment `atlantis plan -d azure/_poc/compute/`
   - 如有就執行 help, plan 或 apply
   - 使用 Github personal access token 再打回去 Github API，產生 comment
 
-```atlantis log
+```
+# atlantis log
+
 # parse comment as command
 {"level":"info","ts":"2021-08-31T23:47:23.483+0800","caller":"events/events_controller.go:417","msg":"parsed comment as command=\"plan\" verbose=false dir=\"azure/_poc/compute\" workspace=\"\" project=\"\" flags=\"\"","json":{}}
 

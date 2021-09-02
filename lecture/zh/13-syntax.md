@@ -123,7 +123,9 @@ terraform plan -json
 
 .tf 與 .tf.json 的格式轉換，我們可以用一個[小工具 kvz/json2hcl](https://github.com/kvz/json2hcl)來做轉換
 
-```azure/_poc/security_group/provider.tf
+```
+# azure/_poc/security_group/provider.tf
+
 terraform {
   required_providers {
     azurerm = {
@@ -147,10 +149,12 @@ provider "azurerm" {
   features {}
 }
 ```
-```
 
 安裝 json2hcl
-```azure/_poc/security_group/provider.tf
+
+```
+# azure/_poc/security_group/provider.tf
+
 curl -SsL https://github.com/kvz/json2hcl/releases/download/v0.0.6/json2hcl_v0.0.6_darwin_amd64 \
   | sudo tee /usr/local/bin/json2hcl > /dev/null && sudo chmod 755 /usr/local/bin/json2hcl && json2hcl -version
 

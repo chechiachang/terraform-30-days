@@ -35,7 +35,9 @@ tfsec --exclude-downloaded-modules
 
 為了避免以上的問題，可以使用 [terragrunt before hook](https://terragrunt.gruntwork.io/docs/features/before-and-after-hooks/)。這裡我們隨意拿一個 root module 作為範例
 
-```azure/foundation/compute_network/terragrunt.hcl
+```
+# azure/foundation/compute_network/terragrunt.hcl
+
 terraform {
   ...
   before_hook "tfsec" {
@@ -47,7 +49,9 @@ terraform {
 
 實際的效果
 
-```azure/foundation/compute_network/terragrunt.hcl
+```
+# azure/foundation/compute_network/terragrunt.hcl
+
 cd azure/foundation/compute_network
 
 terragrunt apply
@@ -109,7 +113,10 @@ Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
 - 放不放 hook？放 terragrunt hook，或是 pre-commit hook，或是 CI 中檢查，團隊需要多加溝通，多嘗試，持續調整，才能達到團隊最佳效益。
 
 範例是 after hook，只要每一次 apply 完成後，做一次 tfsec，讓工程師測試時就可以檢查安全性問題
-```azure/terragrunt.hcl
+
+```
+# azure/terragrunt.hcl
+
 terraform {
   ...
   after_hook "tfsec" {
@@ -220,7 +227,9 @@ Outputs:
 
 有些 module 其實是有依賴性，需要依照先後順序 apply 到公有雲上，後面的 module 才能夠正常 provision。例如 compute VM 其實依賴 compute network 的 subnet id，才能把 compute VM 的 ip 分配到 subnet 上。實際的例子請見 `azure/dev/southeastasia/chechia_net/compute`
 
-```azure/dev/southeastasia/chechia_net/compute/terragrunt.hcl
+```
+# azure/dev/southeastasia/chechia_net/compute/terragrunt.hcl
+
 dependency "network"{
   config_path = find_in_parent_folders("azure/foundation/compute_network")
 }

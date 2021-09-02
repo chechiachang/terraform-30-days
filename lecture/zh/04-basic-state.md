@@ -5,7 +5,8 @@ State 是初學 Terraform 的核心概念，本章節會講解基本的 State �
 # 初探 .tfstate
 
 首先，我們看一下 terraform.tfstate 檔案的內容。你可以使用文字編輯器，或是透過 shell 與 [jq](https://stedolan.github.io/jq/) 工具來檢視 State
-```shell
+
+```
 cat terraform.tfstate
 cat terraform.tfstate | jq keys
 [
