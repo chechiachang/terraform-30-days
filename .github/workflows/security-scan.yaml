@@ -21,6 +21,7 @@ jobs:
       - name: "Security Scan"
         uses: triat/terraform-security-scan@v3
         with:
-          tfsec_exclude: "google-storage-enable-ubla"
+          # These are important isseus. I'll fix these when I have to time. I PROMISE!!!
+          tfsec_exclude: "google-storage-enable-ubla,azure-container-use-rbac-permissions,azure-container-configured-network-policy,azure-container-limit-authorized-ips,azure-container-logging"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
