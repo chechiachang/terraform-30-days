@@ -1,51 +1,11 @@
-# 為何需要 Module
-
-隨著 Terraform 使用越久，我們會開始產生越來越複雜的 .tf 檔案，以滿足我們的需求，而這些需求有可能是類似的功能，不斷重複。例如：
-
-`_poc/container_registry` 中，我們設定了一組 container registry。在現實的應用中，我們可能會產生多組 Registry，給不同服務使用。一個實際的例子：開發流程中產生多組功能相同的 infrastructure resources，作為測試環境與生產環境，除了 poc-registry 外，我們可能會產生 dev-registry，stag-registry，prod-registry，內容完全相同，承載開發流程中不同用途的軟體環境。
-
-使用截至目前所學，可能是把 .tf 檔案複製多份，更改成名稱等參數，apply 上去就獲得多組不同的 registry。
-
-```
-resource "azurerm_container_registry" "acr" {
-  name                     = "chechia-poc"
-  resource_group_name      = "terraform-30-days-poc"
-  location                 = "southeastasia"
-}
-
-resource "azurerm_container_registry" "acr" {
-  name                     = "chechia-dev"
-  resource_group_name      = "terraform-30-days-poc"
-  location                 = "southeastasia"
-}
-
-resource "azurerm_container_registry" "acr" {
-  name                     = "chechia-stag"
-  resource_group_name      = "terraform-30-days-poc"
-  location                 = "southeastasia"
-}
-
-resource "azurerm_container_registry" "acr" {
-  name                     = "chechia-prod"
-  resource_group_name      = "terraform-30-days-poc"
-  location                 = "southeastasia"
-}
-```
-
-這個做法十分直觀，而且確實能用。Terraform 對相同 directory 中的 .tf 數量也沒有限制，也就是說我們可以使用無限的複製貼上，來解決。
-
-可以嘗試更改 `_poc/container_registry` 的資料夾，試著 apply。完全沒問題，是吧？
-
-# Don't Repeat Yourself
-
-我們很快發現
-- 上面這組 registry 除了檔案名稱以外，其他部分的內容都相同，導致 .tf 內容都是重複的
-- 如果未來想要修改（ex. azure 發布新功能）我必須重複修改多次，浪費時間
-- 另外一個 repository 也想使用相同的 resource block，複製過去等於是 hard fork，不會跟上這邊的更新
-
-Don't Repeat Yourself (DRY)，是軟體工程中不同領域共通的最佳實踐。不斷重複的代碼，本身就代表而外的維護成本。那在 Terraform 中我們有沒有可能重複使用 .tf 中的內容？
-
 # Terraform Module
+
+module 在 Terraform 中的定義很簡單，就是一個 container，裡頭有一組一起使用的 resource .tf。然而除了容納一組 resource 以外，module 還有須多額外的功能。
+- directory 中至少一個包含一個 root module
+- 可以調用其他的 module
+- 可以透過 module input / output 傳值
+
+# Example
 
 我們看一下 `_poc/container_registry_module` 這邊的範例
 
@@ -74,9 +34,13 @@ module "registry" {
 - 其他的 input argument (例如 registry name)，則在底下宣告
 - 由於有重複的 arguments，使用 locals block 宣告參數，然後使用 local. reference 到 local variable
 
+# Module meta-argument
+
 使用另外一組 module block，來宣告另一組 child module
 - 使用 `for_each` [meta-argument](https://www.terraform.io/docs/language/modules/syntax.html#meta-arguments)，來宣告這組 module 裡面，由多個 instance 組成
 - 使用 `${each.value}`，將 registry name eval 成為 "chechiadev", "chechiastag", "chechiaprod" 三個名稱，給三個 instance 使用
+
+# Module Init
 
 執行 Terraform init，會在 init
 - 掃描 module 與 source 內容，檢查有無 module 設定錯誤（ex. 路徑錯誤找不到 source），
@@ -193,6 +157,54 @@ Apply complete! Resources: 4 added, 0 changed, 0 destroyed.
 
 換句話說，當資料夾中只有一組，便不會產生 .terraform/modules/ 資料夾及檔案。這裡跟程式碼的實作比較有關，使用上不用額外注意。
 
+
+# 為何需要 Module
+
+隨著 Terraform 使用越久，我們會開始產生越來越複雜的 .tf 檔案，以滿足我們的需求，而這些需求有可能是類似的功能，不斷重複。例如：
+
+`_poc/container_registry` 中，我們設定了一組 container registry。在現實的應用中，我們可能會產生多組 Registry，給不同服務使用。一個實際的例子：開發流程中產生多組功能相同的 infrastructure resources，作為測試環境與生產環境，除了 poc-registry 外，我們可能會產生 dev-registry，stag-registry，prod-registry，內容完全相同，承載開發流程中不同用途的軟體環境。
+
+使用截至目前所學，可能是把 .tf 檔案複製多份，更改成名稱等參數，apply 上去就獲得多組不同的 registry。
+
+```
+resource "azurerm_container_registry" "acr" {
+  name                     = "chechia-poc"
+  resource_group_name      = "terraform-30-days-poc"
+  location                 = "southeastasia"
+}
+
+resource "azurerm_container_registry" "acr" {
+  name                     = "chechia-dev"
+  resource_group_name      = "terraform-30-days-poc"
+  location                 = "southeastasia"
+}
+
+resource "azurerm_container_registry" "acr" {
+  name                     = "chechia-stag"
+  resource_group_name      = "terraform-30-days-poc"
+  location                 = "southeastasia"
+}
+
+resource "azurerm_container_registry" "acr" {
+  name                     = "chechia-prod"
+  resource_group_name      = "terraform-30-days-poc"
+  location                 = "southeastasia"
+}
+```
+
+這個做法十分直觀，而且確實能用。Terraform 對相同 directory 中的 .tf 數量也沒有限制，也就是說我們可以使用無限的複製貼上，來解決。
+
+可以嘗試更改 `_poc/container_registry` 的資料夾，試著 apply。完全沒問題，是吧？
+
+# Don't Repeat Yourself
+
+我們很快發現
+- 上面這組 registry 除了檔案名稱以外，其他部分的內容都相同，導致 .tf 內容都是重複的
+- 如果未來想要修改（ex. azure 發布新功能）我必須重複修改多次，浪費時間
+- 另外一個 repository 也想使用相同的 resource block，複製過去等於是 hard fork，不會跟上這邊的更新
+
+Don't Repeat Yourself (DRY)，是軟體工程中不同領域共通的最佳實踐。不斷重複的代碼，本身就代表而外的維護成本。那在 Terraform 中我們有沒有可能重複使用 .tf 中的內容？
+
 # Issues
 
 使用的本地 module 會有一些問題
@@ -244,6 +256,8 @@ module "registry" {
 ```
 
 事實上，Terraform 不只支援本地的 module，還有許多類型的 module 可以解決上述問題（請見下章） 
+
+
 
 # Source code
 

@@ -1,4 +1,4 @@
-Terraform 也有 Backend之啥是 Terraform Backend 能吃嗎？
+Terraform 也有 Backend 之啥是 Terraform Backend 能吃嗎？
 
 ---
 
@@ -231,13 +231,25 @@ State locking 自動確保多人協作的工作流程是安全的，不會有 ap
 
 公有雲提供的 storage 是最容使用且管理方便，其他 backend 各有各自特性，選擇 backend 時宜多方比較。我們有空再談 backend 的比較。
 
-# 優劣
+# Pros and Cons
 
-Azurerm vs local
+Pros
 - 更方邊的多人協作
 - state locking 保護
-- 費用: azurerm 是計價服務，依據檔案容量與存旅遊量計費，由於 .tfstate 檔案並不會太大，使用公有雲儲存體是非常便宜
 - 其他加值功能，這部分我們之後有機會再做介紹
+
+Cons
+- 一點費用: azurerm 是計價服務，依據檔案容量與存旅遊量計費，由於 .tfstate 檔案並不會太大，使用公有雲儲存體是非常便宜
+
+# Choose your backend
+
+使用公有雲，除了直接選用自家的 Backend 以外，還有許多 Backend 方案可以選擇
+- terraform cloud
+- consul
+- database
+- ...
+
+這些 backend 如何選擇？有哪些考量？我們[大約在第？天與大家分享]()
 
 # Source code
 
