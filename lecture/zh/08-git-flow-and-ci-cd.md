@@ -28,8 +28,8 @@ Terraform 官方文件也針對[團隊導入的階段做說明](https://www.terr
 底下我們會介紹 IaC 高效開發的範例，導入 gitflowd 開發流程，來管理 IaC，使用到的工具有：
 - 版本管理工具，這邊使用 GitHub
   - 引入開發流程，ex. diff, review, PR, release
-- 搭配 CI/CD 工具
-- 自動化
+- [搭配 CI/CD 工具，大概在第十章左右會討論到](./10-ci-cd-automation-github.md)
+- 工作流程全自動化，可以考慮 [Github Action （第十章）](./10-ci-cd-automation-github.md) 或是 [Atlantis（第十一章）](./11-atlantis.md) 等工具
 
 # Core workflow
 
