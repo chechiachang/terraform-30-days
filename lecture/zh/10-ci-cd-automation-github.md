@@ -112,6 +112,38 @@ act --dryrun
 act --env foo=bar
 ```
 
+# Workflow for Terraform
+
+Terraform 的 CI/CD 流程有非常多的面相
+- push / PR checks
+  - format / validate
+  - module test
+- security checks
+- cost checks
+- terraform functions
+  - init
+  - plan
+  - apply
+
+```
+tree .github
+
+.github
+└── workflows
+    ├── format.yaml
+    ├── plan.yaml
+    ├── security-scan.yaml
+    └── validate.yaml
+```
+
+本 repository 並沒有準備自動 apply 的 Github Action
+- 本 repository 的 module 都是課程的範例，並不會對應實際我個人 azure cloud 上的狀況。簡單說：我不希望 terraform-30-days 的 module 都 apply 上去
+- 如果是管理公司實際環境的 terraform repository，建議就可以啟用 terraform apply，on master push event
+
+設定可以參考 `.github/workflow/plan.yml` 這份，調整一下 command 就可以
+
+關於 Iac code 自動 apply，下一章 atlantis 我們會細講
+
 # References
 
 - https://github.com/hashicorp/setup-terraform
