@@ -1,4 +1,15 @@
-本章介紹 terraform collection 的 type，以及如何運用 meta-argument 管理 resource
+本章介紹 terraform 的 `for_each`，以及如何運用 meta-argument 管理 resource
+
+# Resource and meta-argument
+
+一般來說，每個 resource block {} 就代表一個 resource。然而在實務中，我們會有額外的需求
+- 需要管理許多大量重複的 resource
+- 需要管理重複的一組 resource
+
+如果全部都寫成一個一個獨立的 resouce block
+- 會有大量重複的程式碼，違反 DRY，且難以管理
+
+因此 terraform 有提供 meta-argument。使用者可以在 resource 以外的地方，使用 meta-argument 改變 terraform evaluate resource block 的行為。
 
 # About loop
 
@@ -132,44 +143,3 @@ ERRO[0003] 1 error occurred:
 - lifecycle 可以改變 terraform plan, apply 中的行為，也需要靜態的 expression 設定
 
 [Terraform reference to values](https://www.terraform.io/docs/language/expressions/references.html)
-
-# Terraform function: for each
-
-count
-
-loop
-
-# for each
-
-- `for_each = {for route in var.routes:  route.name => route}`
-- complex syntax [for each chaining](https://www.terraform.io/docs/language/meta-arguments/for_each.html#chaining-for_each-between-resources)
-
-```
-myTuple = { for s in var.ids : s => "id/${s}" }
-
-myList = [ 
-  for s in var.ids : "id/${s}"
-]
-
-
-output "print_the_names" {
-  value = [for name in var.user_names : name]
-}
-```
-
-
-
-```
-# modules/kubernetes_cluster/variables.tf
-
-# var.node_pools is a map of any
-variable "node_pools" {
-  type    = map(any)
-  default = {}
-}
-```
-
-
-# meta-argument
-
-https://www.terraform.io/docs/language/resources/syntax.html#meta-arguments

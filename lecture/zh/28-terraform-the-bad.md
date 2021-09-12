@@ -27,3 +27,6 @@ Hcl 真的不算是很容易處理複雜的型別
 local-exec 去跑 provider 尚未支援，但實務上需要的事情
 - parse provider config
 - 加密 / 解密
+
+https://adinermie.com/the-good-the-bad-and-the-ugly-of-using-terraform-compliance/
+https://www.schibsted.pl/blog/9-reasons-why-terraform-is-a-pain-and-1-why-you-should-still-care/
