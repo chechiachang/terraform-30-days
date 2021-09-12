@@ -1,4 +1,4 @@
-本潘介紹 Terraform syntax，為何 .tf 內容是這個格式
+本篇介紹 Terraform syntax，為何 .tf 內容是這個格式
 
 # lecture retrospective
 
@@ -12,7 +12,7 @@
 
 # Terraform syntax
 
-先從這篇出發[Terraform Syntax](https://www.terraform.io/docs/language/syntax/index.html)，介紹 Terraform syntax。這裡又分為兩部分：一個是[Configuration Syntax]()，另一個是[Json Configuration Syntax]。乍看之下有點疑惑，json 是從哪跑出來的？我們可以從幾個角度看這件事：
+先從這篇出發[Terraform Syntax](https://www.terraform.io/docs/language/syntax/index.html)，介紹 Terraform syntax。這裡又分為兩部分：一個是[Configuration Syntax](https://www.terraform.io/docs/language/syntax/configuration.html)，另一個是[Json Configuration Syntax](https://www.terraform.io/docs/language/syntax/json.html)。乍看之下有點疑惑，json 是從哪跑出來的？我們可以從幾個角度看這件事：
 
 Terraform 底層 low-level syntax 是由 [Hashicorp Configuration Language](https://github.com/hashicorp/hcl) 定義的
 
@@ -205,7 +205,7 @@ json2hcl -reverse < azure/_poc/security_group/provider.tf
 
 然而輸入 `_poc/security_group/security_group.tf` 則會出錯
 - json 沒有辦法辨識 hcl 的功能性語法
-  - variable 如：loca. each.，是 hcl 送進 terraform 後才能有效 evaluate
+  - variable 如：local. each.，是 hcl 送進 terraform 後才能有效 evaluate
   - `for_each` 在 json 中也不存在
 
 ```
