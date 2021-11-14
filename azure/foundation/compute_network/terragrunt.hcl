@@ -6,13 +6,13 @@ terraform {
   source = "../../..//azure/modules/compute_network"
 
   before_hook "before_hook" {
-    commands     = ["apply", "plan"]
-    execute      = ["tfsec", "."]
+    commands = ["apply", "plan"]
+    execute  = ["tfsec", "."]
   }
 
   after_hook "format" {
-    commands     = ["apply"]
-    execute      = ["terraform", "fmt", "--recursive"]
+    commands = ["apply"]
+    execute  = ["terraform", "fmt", "--recursive"]
   }
 }
 

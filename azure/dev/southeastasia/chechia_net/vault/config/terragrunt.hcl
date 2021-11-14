@@ -1,7 +1,7 @@
 # TERRAGRUNT CONFIGURATION
 
 terraform {
-  source = "../../../../..//azure/modules/compute"
+  source = "../../../../../..//azure/modules/vault_config"
 }
 
 include {
@@ -18,11 +18,8 @@ dependency "network" {
 }
 
 inputs = {
+  location    = local.common.location
   environment = local.common.environment
 
-  vm_hostname  = "chechia-net"
-  vm_size      = "Standard_B1s" # azure free plan
-  vm_os_simple = "UbuntuServer"
-
-  vnet_subnet_id = dependency.network.outputs.vnet_subnets[0] # dev-1
+  kubeconfig_file = "~/.kube/azure-aks"
 }

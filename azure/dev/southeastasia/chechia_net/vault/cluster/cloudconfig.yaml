@@ -1,0 +1,32 @@
+#cloud-config
+# https://cloudinit.readthedocs.io/en/latest/topics/examples.html
+package_upgrade: true
+packages:
+  - curl
+
+write_files:
+  #- path: /etc/systemd/system/vault.service
+  #  owner: root:root
+  #  content: |
+  #    [Unit]
+  #    Description = Systemd unit for HashiCorp Vault Server
+  #    [Service]
+  #    Restart      = always
+  #    LimitMEMLOCK = infinity
+
+  #    User = chechia
+  #    Group = chechia
+
+  #    ExecStart = /opt/vault/bin/vault server
+
+  #    Restart = on-failure
+  #    RestartSec = 30s
+
+  #    [Install]
+  #    WantedBy = multi-user.target
+
+runcmd:
+  - curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+  - sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+  - sudo apt-get update && sudo apt-get install vault
+  - sudo systemctl start vault
