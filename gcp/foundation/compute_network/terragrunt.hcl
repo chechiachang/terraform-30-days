@@ -1,7 +1,7 @@
 # TERRAGRUNT CONFIGURATION
 
 terraform {
-  source  = "../../..//gcp/foundation/compute_network"
+  source = "../../..//gcp/foundation/compute_network"
 }
 
 include {
