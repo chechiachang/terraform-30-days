@@ -13,7 +13,7 @@ resource "time_rotating" "main" {
 }
 
 resource "random_password" "passwd" {
-  count       = !var.enable_service_principal_certificate ? 1 : 0
+  count       = ! var.enable_service_principal_certificate ? 1 : 0
   length      = 32
   min_upper   = 4
   min_lower   = 2
@@ -25,7 +25,7 @@ resource "random_password" "passwd" {
 }
 
 resource "azuread_service_principal_password" "main" {
-  count                = !var.enable_service_principal_certificate ? 1 : 0
+  count                = ! var.enable_service_principal_certificate ? 1 : 0
   service_principal_id = azuread_service_principal.main.id
   value                = random_password.passwd[0].result
   end_date             = time_rotating.main.rotation_rfc3339

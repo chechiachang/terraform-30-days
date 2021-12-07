@@ -7,7 +7,15 @@ variable "containers" {
   type = map(object({
     name       = string
     image      = string
-    entrypoint = string
+    command    = list(string)
+    env        = set(string)
+    privileged = bool
+    restart    = string
+
+    ports = map(object({
+      internal = number
+      external = number
+    }))
   }))
   default = {}
 }
