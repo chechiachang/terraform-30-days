@@ -1,5 +1,5 @@
 module "docker_image" {
-  source = "../../..//utils/modules/docker"
+  source = "../../..//localhost/modules/docker"
 
   images = var.images
 }

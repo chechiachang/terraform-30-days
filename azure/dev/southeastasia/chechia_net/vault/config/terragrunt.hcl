@@ -1,7 +1,7 @@
 # TERRAGRUNT CONFIGURATION
 
 terraform {
-  source = "../../../../../..//azure/modules/vault_config"
+  source = "../../../../../..//vault/modules/kubernetes_auth"
 }
 
 include {

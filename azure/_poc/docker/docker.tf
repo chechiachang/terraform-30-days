@@ -1,5 +1,5 @@
 module "docker" {
-  source = "../../..//utils/modules/docker"
+  source = "../../..//localhost/modules/docker"
 
   # Manage local docker images
   images = [
