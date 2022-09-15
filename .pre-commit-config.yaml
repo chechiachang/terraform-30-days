@@ -8,3 +8,19 @@ repos:
       - id: shellcheck
       - id: gofmt
       - id: golint
+
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.75.0 # Get the latest from: https://github.com/antonbabenko/pre-commit-terraform/releases
+    hooks:
+      #- id: terraform_fmt
+      - id: terraform_checkov
+      #  args:
+      #    - --args=--skip-check CKV_SECRET_6 # FIXME false alarm on non-secret string
+      #- id: terraform_docs
+      #- id: terragrunt_validate
+      - id: terrascan
+      #- id: terraform_tflint
+      - id: terraform_tfsec
+      - id: infracost_breakdown
+      #- id: tfupdate
+      #- id: terraform_wrapper_module_for_each
