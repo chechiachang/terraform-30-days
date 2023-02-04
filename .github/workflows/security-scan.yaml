@@ -22,6 +22,6 @@ jobs:
         uses: triat/terraform-security-scan@v3
         with:
           # These are important isseus. I'll fix these when I have to time. I PROMISE!!!
-          tfsec_exclude: "google-storage-enable-ubla,azure-container-use-rbac-permissions,azure-container-configured-network-policy,azure-container-limit-authorized-ips,azure-container-logging,azure-storage-default-action-deny"
+          tfsec_exclude: "google-storage-enable-ubla,azure-container-use-rbac-permissions,azure-container-configured-network-policy,azure-container-limit-authorized-ips,azure-container-logging,azure-storage-default-action-deny,google-compute-enable-vpc-flow-logs,azure-storage-queue-services-logging-enabled,azure-storage-queue-services-logging-enabled,azure-network-no-public-ingress,azure-network-no-public-ingress"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

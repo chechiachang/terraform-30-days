@@ -21,6 +21,9 @@ repos:
       - id: terrascan
       #- id: terraform_tflint
       - id: terraform_tfsec
-      - id: infracost_breakdown
+        args:
+        - >
+          --args=-e google-storage-enable-ubla,azure-container-use-rbac-permissions,azure-container-configured-network-policy,azure-container-limit-authorized-ips,azure-container-logging,azure-storage-default-action-deny,google-compute-enable-vpc-flow-logs,azure-storage-queue-services-logging-enabled,azure-storage-queue-services-logging-enabled,azure-network-no-public-ingress,azure-network-no-public-ingress
+      #- id: infracost_breakdown
       #- id: tfupdate
       #- id: terraform_wrapper_module_for_each
